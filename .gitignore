@@ -1,3 +1,6 @@
 node_modules/*
 !node_modules/mathjax
+!node_modules/vue
+!node_modules/marked
+!node_modules/normalize.css
 .DS_Store
