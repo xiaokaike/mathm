@@ -6,134 +6,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" href="/favicon.ico">
     
-    <!-- MathB\\View::styles -->
+    <link rel="stylesheet" type="text/css" href="node_modules/normalize.css/normalize.css">
+
     <link rel="stylesheet" type="text/css" href="styles/base.css">
-    <!-- MathB\View::staticPreviewStyle -->
-    <noscript>
-        <link rel="stylesheet" type="text/css" href="styles/noscript.css">
-    </noscript>
-    <!-- MathBinView::styles -->
-    <style type="text/css">
-    #fb-widget {
-        margin-bottom: 1em;
-    }
     
-    #footerPanel #widgets,
-    #footerPanel #software,
-    #footerPanel #copyright {
-        vertical-align: top;
-        text-align: left;
-        display: inline-block;
-        width: 30%;
-        padding: 0 1em;
-    }
-    
-    #footerPanel #widgets *:first-child,
-    #footerPanel #software *:first-child,
-    #footerPanel #copyright *:first-child {
-        margin-top: 0;
-    }
-    </style>
     <!-- MathB\View::mathjaxConfig -->
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true }, TeX: { equationNumbers: { autoNumber: "AMS" } }, skipStartupTypeset: true, });
     </script>
     <!-- MathB\View::scripts -->
+
     <script src="node_modules/mathjax/MathJax.js?config=TeX-AMS_HTML"></script>
-    <script src="js/Markdown.Converter.js"></script>
-    <script src="js/mathm.js"></script>
-    <script>
-    window.onload = MathB.init
-    </script>
+    <script src="node_modules/marked/marked.min.js"></script>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+
 </head>
 
 <body>
-    <div id="headerPanel">
-        <!-- MathBinView::header -->
-        <div id="header">
-            <h1>
-            <a href="/">xMath</a>
-        </h1>
-            <h2>Share mathematics on the web</h2>
+    <header>
+        <div class="container">
+            <a href="/">MathM</a>    
         </div>
-        <div id="navigation">
-            <button id="demo">demo</button>
-        </div>
-    </div>
-    <div id="main">
-        <div class="input">
-            <div id="form">
-                <form method="post" action="">
-                    <!-- Input code -->
-                    <label for="code">Code:</label>
-                    <textarea id="code" name="code" required placeholder="Enter LaTeX, Markdown and HTML code here. Enclose inline math within $ and $, or \( and \). Enclose displayed math within $$ and $$, or \[ and \]. The following commands work outside math mode: \ref, \eqref, \begin, \end and \$. Put spaces on both sides of less-than sign."></textarea>
-                    <!-- Input title -->
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" placeholder="Title of the post (Optional)" value="">
-                    <!-- Input name -->
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Your name (Optional)" value="">
-                    <!-- Input secret URL -->
-                    <!-- Hidden ID -->
-                    <input type="hidden" id="id" name="id" value="">
-                    <!-- Hidden date -->
-                    <input type="hidden" id="date" name="date" value="">
-                    <!-- Preview button -->
-                    <!-- Submit button -->
-                    <!-- <input type="submit" id="submit" name="submit" value="Save and get URL"> -->
-                </form>
-            </div>
-            <!-- End form -->
-        </div>
-        <!-- End input -->
-        <div class="output">
-            <!-- Output sheet -->
-            <div id="sheet">
-                <h1 id="outputTitle"></h1>
-                <h2 id="outputName"></h2>
-                <!-- MathB\View::staticPreview -->
-                <noscript>
-                    <div id="outputImage">
-                        <!-- } -->
-                    </div>
-                </noscript>
-                <div id="outputCode">
-                </div>
-                <div id="outputDate"></div>
-            </div>
-            <!-- MathB\View::permanentURL -->
-        </div>
-        <!-- End output -->
+        
+    </header>
+
+
+    <div id="editor">
+        <textarea class="input" name="code" 
+            v-model="input" debounce="300"
+            placeholder="Enter LaTeX, Markdown and HTML code here. Enclose inline math within $ and $, or \( and \). Enclose displayed math within $$ and $$, or \[ and \]. The following commands work outside math mode: \ref, \eqref, \begin, \end and \$. Put spaces on both sides of less-than sign.">
+        </textarea>
+        <div class="output" v-html="input | marked"></div>
     </div>
     <!-- End main -->
 
-<script type="text/javascript">
-
-var demoVal = "Binomial theorem\n----------------\n"
-    +"$$ (x+y)^n = \\sum_{k=0}^n {n \\choose k} x^{n - k} y^k $$"
-    +"Exponential function"
-    +"\n--------------------\n"
-    +"$$ e^x = \lim_{n \to \infty} \left( 1+ \frac{x}{n} \right)^n $$"
-    +""
-    +"Cauchy&ndash;Schwarz inequality"
-    +"\n-------------------------------\n"
-    +"$$"
-    +"    \\left( \\sum_{k=1}^n a_k b_k \\right)^2 \\leq"
-    +"    \\left( \\sum_{k=1}^n a_k^2 \\right)"
-    +"    \\left( \\sum_{k=1}^n b_k^2 \\right)"
-    +"$$"
-    +""
-    +"Bayes' theorem"
-    +"\n--------------\n"
-    +"$$ P(A \\mid B) = \\frac{P(B \\mid A) \\, P(A)}{P(B)} $$"
-    +"";
-
-    document.getElementById('demo').addEventListener('click', function(){
-        document.getElementById('code').value = demoVal;
-        MathB.updateCode();
-    });
-
-</script>
+<script type="text/javascript" src="./js/mathm.js"></script>
 
 
 </body>
