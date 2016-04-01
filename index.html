@@ -19,7 +19,6 @@
     <script src="node_modules/mathjax/MathJax.js?config=TeX-AMS_HTML"></script>
     <script src="node_modules/marked/marked.min.js"></script>
     <script src="node_modules/vue/dist/vue.min.js"></script>
-
 </head>
 
 <body>
@@ -27,25 +26,35 @@
         <div class="container">
             <a href="/">MathM</a>    
         </div>
-        
     </header>
-
-
-    <div id="editor">
-        <textarea class="input" name="code" 
-            v-model="input" debounce="300" v-on:keyup="onkeyup"
-            placeholder="Enter LaTeX, Markdown and HTML code here. Enclose inline math within $ and $, or \( and \). Enclose displayed math within $$ and $$, or \[ and \]. The following commands work outside math mode: \ref, \eqref, \begin, \end and \$. Put spaces on both sides of less-than sign.">
-        </textarea>
-        <div id="preview" v-el:output>
-            <div class="output" v-html="input | marked"></div>    
+    
+    <div id="editorWrap">
+        <div class="formula" v-el:formula v-show="initFormula">
+            <ul class="group" v-for="group in formula">
+               <li class="item" 
+                    v-for="item in group" 
+                    data-value="{{item | latex}}"
+                    @click="onClickLatex"
+                >{{item | latex}}</li> 
+            </ul>
         </div>
-        
+
+
+        <div id="editor">
+            <textarea class="input" name="code" 
+                v-model="input" debounce="300" v-on:keyup="onkeyup"
+                placeholder="Enter LaTeX, Markdown and HTML code here. Enclose inline math within $ and $, or \( and \). Enclose displayed math within $$ and $$, or \[ and \]. The following commands work outside math mode: \ref, \eqref, \begin, \end and \$. Put spaces on both sides of less-than sign.">
+            </textarea>
+            <div id="preview" v-el:output>
+                <div class="output" v-html="input | marked"></div>    
+            </div>        
+        </div>  
     </div>
-    <!-- End main -->
+
+    
 
 <script type="text/javascript" src="./js/mathm.js"></script>
 
 
 </body>
-
 </html>

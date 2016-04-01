@@ -31,6 +31,7 @@
   font-size: 14px;
   font-family: 'Monaco', courier, monospace;
   padding: 20px;
+  word-break: break-all;
 }
 
 /**
@@ -48,4 +49,29 @@
 .container a{
   text-decoration: none;
   font-size: 20px;
+}
+
+.formula{
+  // display: none;
+  width: 50%;
+  min-width: 600px;
+  margin: 0 auto;
+}
+
+.formula .group {
+  border: 1px solid #000;
+  margin: 0;
+  padding: 0;
+}
+
+.formula .item{
+  display: inline-block;
+  border: 1px solid #000;
+  min-width: 40px;
+  padding: 5px;
+  text-align: center;
+}
+
+.formula .item .MathJax_Display{
+  margin: 0;
 }
