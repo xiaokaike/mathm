@@ -27,6 +27,9 @@ new Vue({
   },
   filters: {
     marked: function(s){
+
+      s = s.replace('_____', '\\_\\_\\_\\_\\_');
+      console.log(s);
     	var markdown = marked(s);
     	return markdown;
     },
