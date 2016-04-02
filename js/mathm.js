@@ -1,7 +1,7 @@
 var formula = {
     'common': [
-        "{/}frac{ }{ }", "^{ }/_{ }", "x^{ }", "x_{ }", "x^{ }_{ }", "{/}bar{ }", "{/}sqrt{ }", "{/}nthroot{ }{ }",
-        "{/}sum_x^xx", "{/}sum", "{/}log_{ }", "{/}ln", "{/}int_{ }^{ }", "{/}oint_{ }^{ }", "\\left\\{_1^1\\right\\}", "^{\\frown}_{AB}"
+        "{/}frac{a}{b}", "^{a}/_{b}", "a^{b}", "a_{b}", "x^{a}_{b}", "{/}bar{a}", "{/}sqrt{x}",
+        "{/}sum_x^xx", "{/}sum", "{/}log_{x}", "{/}ln", "{/}int_{a}^{b}", "{/}oint_{a}^{b}", "\\left\\{_1^1\\right\\}", "^{\\frown}_{AB}"
     ],
     'symbol': [
         "+", "-", "{/}pm", "{/}times", "{/}ast", "{/}div", "/", "{/}bigtriangleup",
@@ -18,6 +18,7 @@ var formula = {
 };
 
 
+
 new Vue({
   el: '#editorWrap',
   data: {
@@ -29,7 +30,7 @@ new Vue({
     marked: function(s){
 
       s = s.replace('_____', '\\_\\_\\_\\_\\_');
-      console.log(s);
+
     	var markdown = marked(s);
     	return markdown;
     },
