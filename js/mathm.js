@@ -1,3 +1,26 @@
+var renderer = new marked.Renderer();
+
+// renderer.heading = function (text, level) {
+//   return text;
+// };
+
+renderer.image = function(href, title, text){
+  var out = '<img src="' + href + '" alt="' + text + '"';
+  if (title) {
+    out += ' title="' + title + '"';
+  }
+  var exp = href.match(/#(.*)/);
+  var styl = ' style="float: $;"'
+  exp = exp[1] ? exp[1] : null;
+  if(exp === 'right' || exp === 'left'){
+    styl = styl.replace('$', exp);
+    out += styl;
+  }
+
+  out += this.options.xhtml ? '/>' : '>';
+  return out;
+};
+
 var formula = {
   'common': {
     name: '常用',
@@ -37,9 +60,11 @@ new Vue({
   filters: {
     marked: function(s){
 
-      s = s.replace('_____', '\\_\\_\\_\\_\\_');
+      s = s.replace(/\_\_\_\_\_/g, '\\_\\_\\_\\_\\_');
 
-    	var markdown = marked(s);
+    	var markdown = marked(s, {
+        renderer: renderer
+      });
     	return markdown;
     },
     latex: function(latex){
