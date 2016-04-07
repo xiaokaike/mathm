@@ -1,22 +1,30 @@
 var formula = {
-    'common': [
-        "{/}frac{a}{b}", "^{a}/_{b}", "a^{b}", "a_{b}", "x^{a}_{b}", "{/}bar{a}", "{/}sqrt{x}",
-        "{/}sum_x^xx", "{/}sum", "{/}log_{x}", "{/}ln", "{/}int_{a}^{b}", "{/}oint_{a}^{b}", "\\left\\{_1^1\\right\\}", "^{\\frown}_{AB}"
-    ],
-    'symbol': [
-        "+", "-", "{/}pm", "{/}times", "{/}ast", "{/}div", "/", "{/}bigtriangleup",
-        "=", "{/}ne", "{/}approx", ">", "<", "{/}ge", "{/}le", "{/}infty",
-        "{/}cap", "{/}cup", "{/}because", "{/}therefore", "{/}subset", "{/}supset", "{/}subseteq", "{/}supseteq",
-        "{/}nsubseteq", "{/}nsupseteq", "{/}in", "{/}ni", "{/}notin", "{/}mapsto", "{/}leftarrow", "{/}rightarrow",
-        "{/}Leftarrow", "{/}Rightarrow", "{/}leftrightarrow", "{/}Leftrightarrow", "∠", "º", '{/}perp', '{/}odot'
-    ],
-    'letter': [
-        "{/}alpha", "{/}beta", "{/}gamma", "{/}delta", "{/}varepsilon", "{/}varphi", "{/}lambda", "{/}mu",
-        "{/}rho", "{/}sigma", "{/}omega", "{/}Gamma", "{/}Delta", "{/}Theta", "{/}Lambda", "{/}Xi",
-        "{/}Pi", "{/}Sigma", "{/}Upsilon", "{/}Phi", "{/}Psi", "{/}Omega", "{/}pi"
+  'common': {
+    name: '常用',
+    value: [
+      "{/}frac{a}{b}", "^{a}/_{b}", "a^{b}", "a_{b}", "x^{a}_{b}", "{/}bar{a}", "{/}sqrt{x}",
+      "{/}sum_x^xx", "{/}sum", "{/}log_{x}", "{/}ln", "{/}int_{a}^{b}", "{/}oint_{a}^{b}", "\\left\\{_1^1\\right\\}", "^{\\frown}_{AB}"
     ]
+  },
+  'symbol': {
+    name: '符号',
+    value: [
+      "+", "-", "{/}pm", "{/}times", "{/}ast", "{/}div", "/", "{/}bigtriangleup",
+      "=", "{/}ne", "{/}approx", ">", "<", "{/}ge", "{/}le", "{/}infty",
+      "{/}cap", "{/}cup", "{/}because", "{/}therefore", "{/}subset", "{/}supset", "{/}subseteq", "{/}supseteq",
+      "{/}nsubseteq", "{/}nsupseteq", "{/}in", "{/}ni", "{/}notin", "{/}mapsto", "{/}leftarrow", "{/}rightarrow",
+      "{/}Leftarrow", "{/}Rightarrow", "{/}leftrightarrow", "{/}Leftrightarrow", "∠", "º", '{/}perp', '{/}odot'
+    ]
+  },
+  'letter': {
+    name: '字母',
+    value: [
+      "{/}alpha", "{/}beta", "{/}gamma", "{/}delta", "{/}varepsilon", "{/}varphi", "{/}lambda", "{/}mu",
+      "{/}rho", "{/}sigma", "{/}omega", "{/}Gamma", "{/}Delta", "{/}Theta", "{/}Lambda", "{/}Xi",
+      "{/}Pi", "{/}Sigma", "{/}Upsilon", "{/}Phi", "{/}Psi", "{/}Omega", "{/}pi"
+    ]
+  }
 };
-
 
 
 new Vue({

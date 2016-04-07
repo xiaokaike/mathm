@@ -12,7 +12,18 @@
     
     <!-- MathB\View::mathjaxConfig -->
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true }, TeX: { equationNumbers: { autoNumber: "AMS" } }, skipStartupTypeset: true, });
+        MathJax.Hub.Config({ 
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ], 
+                processEscapes: true 
+            }, 
+            TeX: { 
+                equationNumbers: { 
+                    autoNumber: "AMS" 
+                } 
+            }, 
+            skipStartupTypeset: true, 
+        });
     </script>
     <!-- MathB\View::scripts -->
 
@@ -30,14 +41,16 @@
     
     <div id="editorWrap">
         <div class="formula" v-el:formula v-show="initFormula">
-            <ul class="group" v-for="group in formula">
-               <li class="item" 
-                    v-for="item in group" 
-                    data-value="{{item | latex}}"
-                    @click="onClickLatex"
-                >{{item | latex}}</li> 
-            </ul>
+        <div class="formula-group" v-for="group in formula">
+          <!-- <h5>{{group.name}}</h5> -->
+          <ul class="group">
+             <li class="item" v-for="item in group.value" 
+                  data-value="{{item | latex}}"
+                  @click="onClickLatex"
+              >{{item | latex}}</li> 
+          </ul>  
         </div>
+      </div>
 
 
         <div id="editor">

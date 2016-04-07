@@ -1,10 +1,13 @@
+*{
+  -webkit-box-sizing: border-box;
+}
+
 #editor {
   
 }
 
 #editor{
   margin: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
   border: 1px solid #ccc;
   width: 50%;
@@ -29,7 +32,6 @@
   outline: none;
   background-color: #f6f6f6;
   font-size: 14px;
-  font-family: 'Monaco', courier, monospace;
   padding: 20px;
   word-break: break-all;
 }
@@ -51,6 +53,9 @@
   font-size: 20px;
 }
 
+
+
+
 .formula{
   // display: none;
   width: 50%;
@@ -59,19 +64,26 @@
 }
 
 .formula .group {
-  border: 1px solid #000;
+  border-bottom: 1px solid #ccc;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .formula .item{
-  display: inline-block;
-  border: 1px solid #000;
+
+  list-style: none;
+  float: left;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   min-width: 40px;
-  padding: 5px;
+  padding: 4px;
   text-align: center;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 .formula .item .MathJax_Display{
-  margin: 0;
+  margin: 0; 
 }
