@@ -93,6 +93,11 @@ new Vue({
       }, 1000);      
     })
 
+
+    this.initEditor(this.$els.editor);
+
+    
+
   },
   methods:{
   	udpateMath: function($el){
@@ -102,7 +107,35 @@ new Vue({
   		);
   	},
     onClickLatex: function(e){
-      this.input = this.input + e.currentTarget.dataset.value;
+      var la = e.currentTarget.dataset.value;
+      // this.input = this.input + la;
+
+      this._editor.insert(la)
+    },
+    initEditor: function($el){
+      this._editor = ace.edit($el)
+      this._editor.getSession().setMode("ace/mode/markdown")
+      this._editor.setTheme('ace/theme/eclipse')
+      // this._editor.on('focus', this.onAceFocus);
+      // this._editor.on('blur', this.onAceBlur);
+      // this._editor.on('copy', this.onAceCopy);
+      this._editor.on('paste', this.onAcePaste);
+      this._editor.on('change', this.onAceChange.bind(this));
+    },
+    onAceChange: function(){
+      var val = this._editor.getValue();
+
+      val = val.replace(/\_\_\_\_\_/g, '\\_\\_\\_\\_\\_');
+
+      var markdown = marked(val, {
+        renderer: renderer
+      });
+
+      this.input = markdown
+      // return markdown;
+    },
+    onAcePaste: function(){
+
     }
   }
 });
