@@ -96,10 +96,11 @@
 
 .ace-editor {
     position: relative;
-    height: 300px;
+    height: 200px;
     margin-bottom: 20px;
     overflow: hidden;
     border-bottom: 1px solid #ccc;
+
 }
 
 .ace-editor .editor {
@@ -112,4 +113,5 @@
     bottom: 0;
     top: 0px;
     font-size: 14px;
+    background-color: #f6f6f6;
 }

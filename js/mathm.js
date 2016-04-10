@@ -49,6 +49,7 @@ var formula = {
   }
 };
 
+var testVal = '![XXX](http://img.jyeoo.net/quiz/images/201204/4/53aae10e.png#right)如图，长方形ABCD，设其长AD=a，宽AB=b（a＞b），在BC边上选取一点E，将△ABE沿AE翻折后B至直线BD上的O点，若O为长方形ABCD的对称中心，则$\\frac{a}{b}$的值是_____．'
 
 new Vue({
   el: '#editorWrap',
@@ -82,10 +83,6 @@ new Vue({
   ready: function(){
   	var that = this;
   	
-  	setTimeout(function(){
-  		that.input = '![XXX](http://img.jyeoo.net/quiz/images/201204/4/53aae10e.png#right)如图，长方形ABCD，设其长AD=a，宽AB=b（a＞b），在BC边上选取一点E，将△ABE沿AE翻折后B至直线BD上的O点，若O为长方形ABCD的对称中心，则$\\frac{a}{b}$的值是_____．'
-  	}, 1000);
-  	
     Vue.nextTick(function(){
       setTimeout(function(){
         that.udpateMath(that.$els.formula);
@@ -96,7 +93,9 @@ new Vue({
 
     this.initEditor(this.$els.editor);
 
-    
+    setTimeout(function(){
+      that._editor.setValue(testVal)
+    }, 1000);
 
   },
   methods:{
@@ -116,6 +115,9 @@ new Vue({
       this._editor = ace.edit($el)
       this._editor.getSession().setMode("ace/mode/markdown")
       this._editor.setTheme('ace/theme/eclipse')
+      this._editor.renderer.setShowGutter(false);
+      this._editor.getSession().setUseWrapMode(true);
+
       // this._editor.on('focus', this.onAceFocus);
       // this._editor.on('blur', this.onAceBlur);
       // this._editor.on('copy', this.onAceCopy);
