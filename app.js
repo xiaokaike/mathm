@@ -4,6 +4,7 @@ var render = require('koa-swig')
 var app = koa()
 var path = require('path')
 
+var port = process.env.PORT || 3308
 
 var md = require('./src/md.js')
 
@@ -34,5 +35,5 @@ app.use(function *() {
   })
 })
 
-app.listen(3008)
+app.listen(port)
 console.log('listening on port 3008')

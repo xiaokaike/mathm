@@ -1,0 +1,7 @@
+{
+  "name": "mathm",
+  "description": "a math markdown editor base on koa",
+  "repository": "",
+  "logo": "",
+  "keywords": ["node", "koa", "static"]
+}
