@@ -23,10 +23,10 @@
         <div class="formula-group" v-for="group in formula">
           <!-- <h5>{{group.name}}</h5> -->
           <ul class="group">
-             <li class="item" v-for="item in group.value" 
-                  data-value="{{item | latex}}"
+             <li class="item" v-for="item in group.value"
+                data-latex="{{item | latex}}"
                   @click="onClickLatex"
-              >{{item | latex}}</li> 
+              >{{{item | latex | toLatexHtml}}}</li> 
           </ul>  
         </div>
       </div>
@@ -36,7 +36,7 @@
                 <div v-el:editor class="editor"></div>
             </div>
             <div id="preview" v-el:output>
-                <div class="output" v-html="input | marked"></div>    
+                <div class="output" v-html="input"></div>    
             </div>        
         </div>
 

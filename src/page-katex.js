@@ -2,7 +2,7 @@
 
 var Vue = require('vue')
 var md = require('./md.js')
-
+var katex = require('katex')
 var ace = require('brace');
 require('brace/mode/markdown');
 require('brace/theme/eclipse');
@@ -46,32 +46,21 @@ new Vue({
     initFormula: false
   },
   filters: {
-    marked: function(s){
-      return s;
+    toLatexHtml: function(str){
+      try {
+        return '<span class="math inline">' + katex.renderToString (str) + '</span>';
+      } catch (e) {
+        return '<span class="math inline">' + str + '</span>';
+      }
     },
     latex: function(latex){
-      
-      latex = latex.replace("{/}", "\\")
-      return '$'+ latex +'$';
-
-    }
-  },
-  watch: {
-    input: function(){
-      this.udpateMath(this.$els.output);
+      return latex.replace("{/}", "\\")
     }
   },
   ready: function(){
     var that = this;
-    
-    Vue.nextTick(function(){
-      setTimeout(function(){
-        that.udpateMath(that.$els.formula);
-        that.initFormula = true;
-      }, 1000);      
-    })
 
-
+    that.initFormula = true;
     this.initEditor(this.$els.editor);
 
     setTimeout(function(){
@@ -80,9 +69,6 @@ new Vue({
 
   },
   methods:{
-    udpateMath: function($el){
-      
-    },
     onClickLatex: function(e){
       var la = e.currentTarget.dataset.value;
       this._editor.insert(la)

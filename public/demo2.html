@@ -6,50 +6,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
-
     <link rel="stylesheet" type="text/css" href="styles/base.css">
-    
     <!-- MathB\View::mathjaxConfig -->
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({ 
-            tex2jax: {
-                inlineMath: [ ['$','$'], ["\\(","\\)"] ], 
-                processEscapes: true 
-            }, 
-            TeX: { 
-                equationNumbers: { 
-                    autoNumber: "AMS" 
-                } 
-            }, 
-            skipStartupTypeset: true, 
-        });
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true }, TeX: { equationNumbers: { autoNumber: "AMS" } }, skipStartupTypeset: true, });
     </script>
     <!-- MathB\View::scripts -->
-
     <script src="./mathjax/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="/">MathM</a>    
-        </div>
+    <header class="container">
+        <a href="/">MathM</a>
+        <div>使用ace做输入, marked做markdown解析器 mathjax做公式解析</div>
     </header>
-    
     <div id="editorWrap">
         <div class="formula" v-el:formula v-show="initFormula">
-        <div class="formula-group" v-for="group in formula">
-          <!-- <h5>{{group.name}}</h5> -->
-          <ul class="group">
-             <li class="item" v-for="item in group.value" 
-                  data-value="{{item | latex}}"
-                  @click="onClickLatex"
-              >{{item | latex}}</li> 
-          </ul>  
+            <div class="formula-group" v-for="group in formula">
+                <!-- <h5>{{group.name}}</h5> -->
+                <ul class="group">
+                    <li class="item" v-for="item in group.value" data-value="{{item | latex}}" @click="onClickLatex">{{item | latex}}</li>
+                </ul>
+            </div>
         </div>
-      </div>
-
-
         <div id="editor">
             <!-- <textarea class="input" name="code" 
                 v-model="input" debounce="300" v-on:keyup="onkeyup"
@@ -59,15 +38,11 @@
                 <div v-el:editor class="editor"></div>
             </div>
             <div id="preview" v-el:output>
-                <div class="output" v-html="input | marked"></div>    
-            </div>        
-        </div>  
+                <div class="output" v-html="input | marked"></div>
+            </div>
+        </div>
     </div>
-
-    
-
-<script type="text/javascript" src="js/pageB.js"></script>
-
-
+    <script type="text/javascript" src="js/pageB.js"></script>
 </body>
+
 </html>

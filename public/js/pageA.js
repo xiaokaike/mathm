@@ -48,7 +48,7 @@
 
 	var Vue = __webpack_require__(1)
 	var md = __webpack_require__(3)
-
+	var katex = __webpack_require__(4)
 	var ace = __webpack_require__(287);
 	__webpack_require__(290);
 	__webpack_require__(295);
@@ -92,32 +92,21 @@
 	    initFormula: false
 	  },
 	  filters: {
-	    marked: function(s){
-	      return s;
+	    toLatexHtml: function(str){
+	      try {
+	        return '<span class="math inline">' + katex.renderToString (str) + '</span>';
+	      } catch (e) {
+	        return '<span class="math inline">' + str + '</span>';
+	      }
 	    },
 	    latex: function(latex){
-	      
-	      latex = latex.replace("{/}", "\\")
-	      return '$'+ latex +'$';
-
-	    }
-	  },
-	  watch: {
-	    input: function(){
-	      this.udpateMath(this.$els.output);
+	      return latex.replace("{/}", "\\")
 	    }
 	  },
 	  ready: function(){
 	    var that = this;
-	    
-	    Vue.nextTick(function(){
-	      setTimeout(function(){
-	        that.udpateMath(that.$els.formula);
-	        that.initFormula = true;
-	      }, 1000);      
-	    })
 
-
+	    that.initFormula = true;
 	    this.initEditor(this.$els.editor);
 
 	    setTimeout(function(){
@@ -126,9 +115,6 @@
 
 	  },
 	  methods:{
-	    udpateMath: function($el){
-	      
-	    },
 	    onClickLatex: function(e){
 	      var la = e.currentTarget.dataset.value;
 	      this._editor.insert(la)
