@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MathM - Math Markdown editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="styles/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">  
+</head>
+
+<body>
+    <header class="container">
+        <div>
+            <a href="/">MathM</a>    
+        </div>
+        <div>使用ace做输入, markdown-it做markdown解析器 katex做公式解析</div>
+    </header>
+    
+    <div id="editorWrap">
+        <div class="formula" v-el:formula v-show="initFormula">
+        <div class="formula-group" v-for="group in formula">
+          <!-- <h5>{{group.name}}</h5> -->
+          <ul class="group">
+             <li class="item" v-for="item in group.value"
+                data-latex="{{item | latex}}"
+                  @click="onClickLatex"
+              >{{{item | latex | toLatexHtml}}}</li> 
+          </ul>  
+        </div>
+      </div>
+
+        <div id="editor">
+            <div class="ace-editor">
+                <div v-el:editor class="editor"></div>
+            </div>
+            <div id="preview" v-el:output>
+                <div class="output" v-html="input"></div>    
+            </div>        
+        </div>
+
+    </div>
+
+    
+
+<script src="js/pageA.js"></script>
+
+</body>
+</html>
