@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MathM - Math Markdown editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" type="text/css" href="node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="styles/base.css">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+
+    <script src="node_modules/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="node_modules/markdown-it-math/dist/markdown-it-math.js"></script>
+
+    <!-- vue -->
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    
+    <!-- ace -->
+    <script src="js/ace/ace.js"></script>
+    <script src="js/ace/mode-markdown.js"></script>
+    <script type="text/javascript" src="js/ace/theme-eclipse.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="/">MathM</a>    
+        </div>
+    </header>
+    
+    <div id="editorWrap">
+        <div class="formula" v-el:formula v-show="initFormula">
+        <div class="formula-group" v-for="group in formula">
+          <!-- <h5>{{group.name}}</h5> -->
+          <ul class="group">
+             <li class="item" v-for="item in group.value" 
+                  data-value="{{item | latex}}"
+                  @click="onClickLatex"
+              >{{item | latex}}</li> 
+          </ul>  
+        </div>
+      </div>
+
+        <div id="editor">
+            <div class="ace-editor">
+                <div v-el:editor class="editor"></div>
+            </div>
+            <div id="preview" v-el:output>
+                <div class="output" v-html="input | marked"></div>    
+            </div>        
+        </div>
+
+    </div>
+
+    
+
+<script type="text/javascript" src="./js/mathm-new.js"></script>
+
+
+</body>
+</html>
