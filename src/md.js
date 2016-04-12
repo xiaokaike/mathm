@@ -13,7 +13,7 @@ md.use(require('markdown-it-math'), {
   blockClose: '$$',
   inlineRenderer: function (str) {
     try {
-      return '<span class="math inline">' + katex.renderToString (str) + '</span>';
+      return '<span class="math inline" data-latex="$data$">$latex$</span>'.replace('$latex$', katex.renderToString(str)).replace('$data$', str);
     } catch (e) {
       return '<span class="math inline">' + e + '</span>';
     }
@@ -22,7 +22,7 @@ md.use(require('markdown-it-math'), {
     try {
       return '<span class="math block">' + katex.renderToString (str) + '</span>';
     } catch (e) {
-      return '<span class="math block">' + e + '</span>';
+      return '<span class="math block">' + str + '</span>';
     }
   }
 });

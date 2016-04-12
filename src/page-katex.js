@@ -71,6 +71,7 @@ new Vue({
   methods:{
     onClickLatex: function(e){
       var la = e.currentTarget.dataset.value;
+      la = '$' + la + '$'
       this._editor.insert(la)
     },
     initEditor: function($el){

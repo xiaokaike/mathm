@@ -3,8 +3,9 @@ var koa = require('koa')
 var render = require('koa-swig')
 var app = koa()
 var path = require('path')
+var dataTitle = require('./data/title.js')
 
-var port = process.env.PORT || 3308
+var port = process.env.PORT || 3008
 
 var md = require('./src/md.js')
 
@@ -28,12 +29,14 @@ app.context.render = render({
 })
 
 
+
 app.use(function *() {
   yield this.render('index',{
+    dataTitle: dataTitle.data,
     title: '# xxx',
     content: 'sfaf $2^2$ '
   })
 })
 
 app.listen(port)
-console.log('listening on port 3008')
+console.log('listening on port ', port)

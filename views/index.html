@@ -6,15 +6,70 @@
   <link rel="stylesheet" type="text/css" href="styles/base.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">  
+  <style type="text/css">
+    .qs-title{
+      margin: 0;
+      padding: 0;
+    }
 
+    .qs-title .qs-item{
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      overflow: hidden;
+      display: -webkit-box;
+    }
+    
+    .qs-title .qs-index{
+      font-size: 20px;
+      color: red;
+    }
+
+    .qs-title .qs-origin,
+    .qs-title .qs-md{
+      width: 10px;
+      -webkit-box-flex: 1;
+      padding: 10px;
+    }
+
+    .qs-title .qs-origin {
+      margin-right: 10px;
+      border-right: 1px solid #ccc;
+    }
+    .math.inline{
+      background-color: rgba(154, 151, 27, 0.16);
+    }
+
+  </style>
 </head>
 <body>
-  {% autoescape %}
-  {{ title|md }}
-  {{ content|md }}
-  {% endautoescape %}
+  <h3>
+    测试markdown latex 后端渲染的效果
+    <br>
+    编辑器
 
+    <a href="/demo1.html">Demo1</a>
+    <a href="/demo2.html">Demo2</a>
 
-  sfdafs
+  </h3>
+  
+  <ul class="qs-title"> 
+    {% for tit in dataTitle %}
+      <li class="qs-item">
+      <div class="qs-index">{{loop.index}}</div>
+      <div class="qs-origin">
+        {{ tit.title }}
+      </div>
+
+      <div class="qs-md">
+        {% autoescape %}
+        {{ tit.title|md }}
+        {% endautoescape %}  
+      </div>
+      
+      </li>
+    {% endfor %}
+  </ul>
+  
+
 </body>
 </html>

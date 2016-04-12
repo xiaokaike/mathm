@@ -24,7 +24,7 @@
           <!-- <h5>{{group.name}}</h5> -->
           <ul class="group">
              <li class="item" v-for="item in group.value"
-                data-latex="{{item | latex}}"
+                data-value="{{item | latex}}"
                   @click="onClickLatex"
               >{{{item | latex | toLatexHtml}}}</li> 
           </ul>  
