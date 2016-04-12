@@ -1,8 +1,12 @@
-var renderer = new marked.Renderer();
 
-// renderer.heading = function (text, level) {
-//   return text;
-// };
+var Vue = require('vue')
+var marked = require('marked');
+var ace = require('brace');
+require('brace/mode/markdown');
+require('brace/theme/eclipse');
+
+
+var renderer = new marked.Renderer();
 
 renderer.image = function(href, title, text){
   var out = '<img src="' + href + '" alt="' + text + '"';
@@ -20,6 +24,8 @@ renderer.image = function(href, title, text){
   out += this.options.xhtml ? '/>' : '>';
   return out;
 };
+
+
 
 var formula = {
   'common': {

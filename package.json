@@ -1,9 +1,8 @@
 {
   "name": "mathm",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "description": "math markdown editor",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,12 +20,10 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
+    "katex": "^0.2.0",
     "koa": "^1.2.0",
     "koa-static": "^2.0.0",
-    "marked": "^0.3.5",
-    "mathjax": "2.6.1",
-    "normalize.css": "^4.0.0",
-    "vue": "^1.0.0",
+    "koa-swig": "^2.2.0",
     "markdown-it": "^4.4.0",
     "markdown-it-abbr": "^1.0.0",
     "markdown-it-checkbox": "^1.1.0",
@@ -38,7 +35,10 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc": "^1.1.0",
-    "katex": "^0.2.0"
+    "marked": "^0.3.5",
+    "mathjax": "2.6.1",
+    "normalize.css": "^4.0.0",
+    "vue": "^1.0.0"
   },
   "repository": {
     "type": "git",

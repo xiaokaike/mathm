@@ -1,9 +1,12 @@
 module.exports = {
-  entry: "./src/main.js",
+  entry: {
+    pageA: "./src/page-katex.js",
+    pageB: "./src/page-mathjax.js"
+  },
   output: {
-    path: "./public/build",
-    publicPath: "/public/build/",
-    filename: "build.js"
+    path: "./public/js",
+    publicPath: "/public/js/",
+    filename: "[name].js"
   },
   module: {
     loaders: [
