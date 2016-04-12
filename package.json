@@ -6,7 +6,18 @@
   "description": "math markdown editor",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch",
+    "build": "webpack -p"
+  },
+  "devDependencies": {
+    "css-loader": "^0.16.0",
+    "html-loader": "^0.3.0",
+    "node-libs-browser": "^0.5.2",
+    "style-loader": "^0.12.3",
+    "stylus-loader": "^1.2.1",
+    "json-loader": "^0.5.1",
+    "webpack": "^1.11.0"
   },
   "dependencies": {
     "brace": "^0.8.0",

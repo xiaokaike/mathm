@@ -1,24 +1,12 @@
-var md = window.markdownit();
-md.use(markdownitMath, {
-  inlineOpen: '$',
-  inlineClose: '$',
-  blockOpen: '$$',
-  blockClose: '$$',
-  inlineRenderer: function (str) {
-    try {
-      return '<span class="math inline">' + katex.renderToString (str) + '</span>';
-    } catch (e) {
-      return '<span class="math inline">' + e + '</span>';
-    }
-  },
-  blockRenderer: function (str) {
-    try {
-      return '<span class="math block">' + katex.renderToString (str) + '</span>';
-    } catch (e) {
-      return '<span class="math block">' + e + '</span>';
-    }
-  }
-})
+'use strict';
+
+var Vue = require('vue')
+var md = require('./md.js')
+
+var ace = require('brace');
+require('brace/mode/markdown');
+require('brace/theme/eclipse');
+
 
 var formula = {
   'common': {
