@@ -33,7 +33,7 @@
     "markdown-it-footnote": "^1.0.0",
     "markdown-it-ins": "^1.0.0",
     "markdown-it-mark": "^1.0.0",
-    "markdown-it-math": "^3.0.2",
+    "markdown-it-math": "^4.0.0",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc": "^1.1.0",
