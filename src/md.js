@@ -1,7 +1,11 @@
 'use strict';
 
 var katex = require('katex')
+var mk = require('./md-it-katex.js')
 var md = require('markdown-it')()
+
+
+// md.use(mk)
 
 /*
   change to Katex for math rendering

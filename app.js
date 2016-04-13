@@ -57,8 +57,8 @@ app.use(function *() {
     console.log(e)
   }
 
-  _.each(qsInfo.data, function(item){
-    
+  _.each(qsInfo.data, function(item, index){
+    // console.log(index, '----------', item.title)
     item.tpl = md.render(item.title)
     if(/latex\-error/.test(item.tpl)){
       errorCount ++
