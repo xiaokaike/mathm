@@ -10196,7 +10196,6 @@
 	  blockOpen: '$$',
 	  blockClose: '$$',
 	  inlineRenderer: function (str) {
-	    console.log('----', str)
 	    var strHtml = str
 	    var tpl = '<span class="math inline latex-error" data-latex="$data$">$latex$</span>'
 
