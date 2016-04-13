@@ -10192,6 +10192,7 @@
 	  blockOpen: '$$',
 	  blockClose: '$$',
 	  inlineRenderer: function (str) {
+	    console.log('----', str)
 	    var strHtml = str
 	    var tpl = '<span class="math inline latex-error" data-latex="$data$">$latex$</span>'
 
@@ -30594,6 +30595,7 @@
 	      makeMathRenderer(Object.assign({ display: 'block' },
 	                                     options.renderingOptions));
 
+	  console.log(inlineOpen, inlineClose)
 	  var math_inline = makeMath_inline(inlineOpen, inlineClose);
 	  var math_block = makeMath_block(blockOpen, blockClose);
 
