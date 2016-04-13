@@ -43,17 +43,22 @@ app.use(function *() {
   var page = query.page || 1
   var size = query.size || 20
   var url = sszAPI.replace('{page}', page).replace('{size}', size);
-  
-  console.log(url)
-    
+      
   //Yay, HTTP requests with no callbacks! 
   var response = yield request({
     url: url,
   });
 
-  var qsInfo = JSON.parse(response.body);
- 
+  var qsInfo = {}
+
+  try {
+    qsInfo = JSON.parse(response.body)
+  } catch (e){
+    console.log(e)
+  }
+
   _.each(qsInfo.data, function(item){
+    
     item.tpl = md.render(item.title)
     if(/latex\-error/.test(item.tpl)){
       errorCount ++

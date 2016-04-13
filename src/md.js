@@ -46,10 +46,16 @@ md.renderer.rules.image = function(tokens, idx, options, env, self){
   
   var token = tokens[idx]
 
-  var src = token.attrs[0][1]
+  var src = ''
+
+  if(token.attrs && token.attrs[0] && token.attrs[0][1]){
+    src = token.attrs[0] && token.attrs[0][1]
+  }
   var exp = src.match(/#(.*)/)
   var styl = 'float: $;'
-  exp = exp[1] ? exp[1] : null
+  if(exp && exp[1]){
+    exp = exp[1]
+  }
 
   if(exp === 'right' || exp === 'left'){
     styl = styl.replace('$', exp)
