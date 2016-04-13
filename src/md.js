@@ -12,18 +12,29 @@ md.use(require('markdown-it-math'), {
   blockOpen: '$$',
   blockClose: '$$',
   inlineRenderer: function (str) {
+    var strHtml = str
+    var tpl = '<span class="math inline latex-error" data-latex="$data$">$latex$</span>'
+
     try {
-      return '<span class="math inline" data-latex="$data$">$latex$</span>'.replace('$latex$', katex.renderToString(str)).replace('$data$', str);
+      strHtml = katex.renderToString(str)
+      tpl = tpl.replace('error', '')
     } catch (e) {
-      return '<span class="math inline">' + e + '</span>';
+      // console.log('[----]', e, str)
     }
+
+    return tpl.replace('$latex$', strHtml).replace('$data$', str)
   },
   blockRenderer: function (str) {
+    var strHtml = str
+    var tpl = '<span class="math block latex-error" data-latex="$data$">$latex$</span>'
     try {
-      return '<span class="math block">' + katex.renderToString (str) + '</span>';
+      strHtml = katex.renderToString(str)
+      tpl = tpl.replace('error', '')
     } catch (e) {
-      return '<span class="math block">' + str + '</span>';
+      // console.log('[----]', e, str)
     }
+
+    return tpl.replace('$latex$', strHtml).replace('$data$', str);
   }
 });
 

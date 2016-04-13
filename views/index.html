@@ -39,6 +39,18 @@
       background-color: rgba(154, 151, 27, 0.16);
     }
 
+    .math.inline.latex-error{
+      background-color: red;
+    }
+    strong.error{
+      font-size: 20px;
+      color: red
+    }
+    strong.qs-len{
+      font-size: 20px;
+      color: red
+    }
+
   </style>
 </head>
 <body>
@@ -52,8 +64,13 @@
 
   </h3>
   
+  <h4>
+    解析题目总数 <strong class="qs-len">{{qs.length}}</strong> 
+    解析错误数 <strong class="error">{{errorCount}}</strong>
+  </h4>
+
   <ul class="qs-title"> 
-    {% for tit in dataTitle %}
+    {% for tit in qs %}
       <li class="qs-item">
       <div class="qs-index">{{loop.index}}</div>
       <div class="qs-origin">
@@ -62,7 +79,7 @@
 
       <div class="qs-md">
         {% autoescape %}
-        {{ tit.title|md }}
+        {{ tit.tpl }}
         {% endautoescape %}  
       </div>
       

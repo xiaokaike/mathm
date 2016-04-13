@@ -7,6 +7,7 @@ var ace = require('brace');
 require('brace/mode/markdown');
 require('brace/theme/eclipse');
 
+window.katex = katex;
 
 var formula = {
   'common': {

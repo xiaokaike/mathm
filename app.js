@@ -1,9 +1,15 @@
 var serve = require('koa-static')
 var koa = require('koa')
+var _ = require('lodash')
 var render = require('koa-swig')
 var app = koa()
 var path = require('path')
-var dataTitle = require('./data/title.js')
+var _testData = require('./data/title.js')
+// var request = require('request');
+
+var request = require('koa-request');
+
+
 
 var port = process.env.PORT || 3008
 
@@ -15,12 +21,11 @@ app.use(serve(__dirname + '/public/'))
 app.context.render = render({
   root: path.join(__dirname, 'views'),
   autoescape: true,
-  cache: false, // disable, set to false
+  cache: 0, // disable, set to false
   ext: 'html',
   // locals: locals,
   filters: {
     md: function(str){
-      console.log(str)
       return md.render(str)
     }
   },
@@ -29,14 +34,40 @@ app.context.render = render({
 })
 
 
+var sszAPI = 'http://sszservice.dev.uae.uc.cn/api/1/solutions/get_math_solution?page={page}&size={size}';
+
 
 app.use(function *() {
-  yield this.render('index',{
-    dataTitle: dataTitle.data,
-    title: '# xxx',
-    content: 'sfaf $2^2$ '
+  var errorCount = 0
+  var query = this.request.query;
+  var page = query.page || 1
+  var size = query.size || 20
+  var url = sszAPI.replace('{page}', page).replace('{size}', size);
+  
+  console.log(url)
+    
+  //Yay, HTTP requests with no callbacks! 
+  var response = yield request({
+    url: url,
+  });
+
+  var qsInfo = JSON.parse(response.body);
+ 
+  _.each(qsInfo.data, function(item){
+    item.tpl = md.render(item.title)
+    if(/latex\-error/.test(item.tpl)){
+      errorCount ++
+    }
   })
+
+  yield this.render('index',{
+    qs: qsInfo.data,
+    errorCount: errorCount
+  })
+
 })
+
+
 
 app.listen(port)
 console.log('listening on port ', port)
