@@ -1,14 +1,24 @@
-var serve = require('koa-static')
-var koa = require('koa')
+
 var _ = require('lodash')
-var render = require('koa-swig')
-var app = koa()
 var path = require('path')
+var koa = require('koa')
+var request = require('koa-request')
+var serve = require('koa-static')
+var render = require('koa-swig')
+
+var app = koa()
 var _testData = require('./data/title.js')
-// var request = require('request');
+var fs = require('fs');
+var sAPI = ''
+try{
+  var _conf = fs.readFileSync('./_config.json', 'utf-8')
+  _conf = JSON.parse(_conf)
+  sAPI = _conf.sAPI
+}catch(e){
+  sAPI = process.env.sAPI
+}
 
-var request = require('koa-request');
-
+console.log(sAPI)
 
 
 var port = process.env.PORT || 3008
@@ -34,15 +44,12 @@ app.context.render = render({
 })
 
 
-var sszAPI = '';
-
-
 app.use(function *() {
   var errorCount = 0
   var query = this.request.query;
   var page = query.page || 1
   var size = query.size || 20
-  var url = sszAPI.replace('{page}', page).replace('{size}', size);
+  var url = sAPI.replace('{page}', page).replace('{size}', size);
       
   //Yay, HTTP requests with no callbacks! 
   var response = yield request({
