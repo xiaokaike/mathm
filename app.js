@@ -34,7 +34,7 @@ app.context.render = render({
 })
 
 
-var sszAPI = 'http://sszservice.dev.uae.uc.cn/api/1/solutions/get_math_solution?page={page}&size={size}';
+var sszAPI = '';
 
 
 app.use(function *() {
