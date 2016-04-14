@@ -10182,7 +10182,9 @@
 
 	var katex = __webpack_require__(4)
 	var mk = __webpack_require__(27)
-	var md = __webpack_require__(28)()
+	var md = __webpack_require__(28)({
+	  html: true
+	})
 
 
 	// md.use(mk)
@@ -10224,24 +10226,26 @@
 
 
 	function renderLatex(latex){
-
+	  
+	  // 去除不标准的latex字符
 	  latex = latex
 	    .replace(/\＞/g, '>')
 	    .replace(/…/g, '\\ldots ')
 	    .replace(/\＜/g, '<')
 	    .replace(/≤/g, '\\le ')
 	    .replace(/≥/g, '\\ge ')
-	    .replace(/•/g, '\\cdot ')
-	    .replace(/π/g, '\\pi ')
 	    .replace(/≠/g, '\\ne ')
 	    .replace(/×/g, '\\times ')
 	    .replace(/÷/g, '\\div ')
+	    .replace(/≈/g, '\\approx ')
+	    .replace(/•/g, '\\cdot ')
+	    .replace(/π/g, '\\pi ')
 	    .replace(/，/g, ', ')
 	    .replace(/（/g, '(')
 	    .replace(/）/g, ')')
 	    .replace(/△/g, '\\bigtriangleup ')
 	    .replace(/∠/g, '\\angle ')
-	    .replace(/\′/g, '\\backprime ') // 不标准
+	    .replace(/\′/g, '\\backprime ') //TODO
 
 	  console.log(latex)
 
