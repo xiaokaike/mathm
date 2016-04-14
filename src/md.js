@@ -20,7 +20,7 @@ md.use(require('markdown-it-math'), {
     var tpl = '<span class="math inline latex-error" data-latex="$data$">$latex$</span>'
 
     try {
-      strHtml = katex.renderToString(str)
+      strHtml = renderLatex(str)
       tpl = tpl.replace('error', '')
     } catch (e) {
       // console.log('[----]', e, str)
@@ -32,7 +32,7 @@ md.use(require('markdown-it-math'), {
     var strHtml = str
     var tpl = '<span class="math block latex-error" data-latex="$data$">$latex$</span>'
     try {
-      strHtml = katex.renderToString(str)
+      strHtml = renderLatex(str)
       tpl = tpl.replace('error', '')
     } catch (e) {
       // console.log('[----]', e, str)
@@ -42,6 +42,31 @@ md.use(require('markdown-it-math'), {
   }
 });
 
+
+function renderLatex(latex){
+
+  latex = latex
+    .replace(/\＞/g, '>')
+    .replace(/…/g, '\\ldots ')
+    .replace(/\＜/g, '<')
+    .replace(/≤/g, '\\le ')
+    .replace(/≥/g, '\\ge ')
+    .replace(/•/g, '\\cdot ')
+    .replace(/π/g, '\\pi ')
+    .replace(/≠/g, '\\ne ')
+    .replace(/×/g, '\\times ')
+    .replace(/÷/g, '\\div ')
+    .replace(/，/g, ', ')
+    .replace(/（/g, '(')
+    .replace(/）/g, ')')
+    .replace(/△/g, '\\bigtriangleup ')
+    .replace(/∠/g, '\\angle ')
+    .replace(/\′/g, '\\backprime ') // 不标准
+
+  console.log(latex)
+
+  return katex.renderToString(latex)
+}
 
 
 
