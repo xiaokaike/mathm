@@ -8,6 +8,7 @@ var request = require('koa-request')
 var serve = require('koa-static')
 var render = require('koa-swig')
 var route = require('koa-route')
+var koaJson = require('koa-json');
 var coParse = require('co-busboy')
 
 var md = require('./src/md.js')
@@ -101,13 +102,16 @@ var upload = function *(next){
     console.log('uploading %s -> %s', part.filename, stream.path);
   }
 
-  this.body = 'success'
+  this.body = {
+    status: 'success' 
+  };
 }
 
 
 
 
 // or use absolute paths
+app.use(koaJson())
 app.use(serve(__dirname + '/public/'))
 app.use(route.get('/', pages.index))
 app.use(route.post('/upload', upload))

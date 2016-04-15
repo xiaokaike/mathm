@@ -1,9 +1,9 @@
 var Vue = require('vue')
 var $ = require('jquery')
-
+var _ = require('lodash')
 
 var project_uploads_path = '/upload';
-
+var imageFieldName = 'upfile';
 
 Array.prototype.first = function() {
   return this[0];
@@ -22,7 +22,6 @@ new Vue({
   },
   ready: function(){
 
-
   },
   methods:{
     handlePaste: function(event){
@@ -35,11 +34,55 @@ new Vue({
           event.preventDefault();
           filename = getFilename(pasteEvent) || "image.png";
           text = "{{" + filename + "}}";
-          return uploadFile(image.getAsFile(), filename);
+          return uploadFile(image.getAsFile(), filename, function(data){
+            console.log(data);
+          });
         }
       }
     },
-    
+    handleDrag: function(e){
+      var that = this;  
+
+      //获取文件列表
+      var fileList = e.dataTransfer.files;
+      var img = document.createElement('img');
+      var hasImg = false;
+
+      _.each(fileList, function(f, i) {
+        if (/^image/.test(f.type)) {
+          //创建图片的base64
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("post", project_uploads_path + "?type=ajax", true);
+          xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+          //模拟数据
+          var fd = new FormData();
+          fd.append(imageFieldName, f);
+
+          xhr.send(fd);
+          xhr.addEventListener('load', function(e) {
+            var r = e.target.response;
+            var json;
+            that.uploadComplete(r);
+            if (i === fileList.length - 1) {
+              img.remove();
+            }
+          });
+          hasImg = true;
+        }
+      });
+
+      if (hasImg) {
+        e.preventDefault();
+      }
+    },
+    handleDragover: function(e){
+      e.preventDefault();
+    },
+    uploadComplete: function(data){
+
+    }
   }
 });
 
@@ -69,7 +112,7 @@ function getFilename(e) {
   return value.first();
 }
 
-function uploadFile(item, filename) {
+function uploadFile(item, filename, callback) {
   var formData = new FormData();
   formData.append("file", item, filename);
   
@@ -89,13 +132,14 @@ function uploadFile(item, filename) {
       return console.log('beforeSend');
     },
     success: function(e, textStatus, response) {
-      return console.log(e, textStatus, response);
+      callback(e)
+      return;
     },
     error: function(response) {
-      return showError(response.responseJSON.message);
+      return console.log(response);
     },
     complete: function() {
-      return closeSpinner();
+      
     }
   });
 }
