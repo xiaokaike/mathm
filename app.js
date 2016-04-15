@@ -95,15 +95,18 @@ var upload = function *(next){
   // multipart upload
   var parts = coParse(this);
   var part;
+  
 
   while (part = yield parts) {
-    var stream = fs.createWriteStream(path.join(__dirname, '/public/upload/', part.filename));
+    var url = '/upload/' + part.filename
+    var stream = fs.createWriteStream(path.join(__dirname, '/public', url));
     part.pipe(stream);
     console.log('uploading %s -> %s', part.filename, stream.path);
   }
 
   this.body = {
-    status: 'success' 
+    status: 'success',
+    url: url
   };
 }
 
