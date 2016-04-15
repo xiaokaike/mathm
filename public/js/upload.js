@@ -127,7 +127,7 @@
 	          xhr.addEventListener('load', function(e) {
 	            var r = e.target.response;
 	            var json;
-	            that.uploadComplete(r);
+	            that.uploadComplete(JSON.parse(r));
 	            if (i === fileList.length - 1) {
 	              img.remove();
 	            }
@@ -144,6 +144,7 @@
 	      e.preventDefault();
 	    },
 	    uploadComplete: function(data){
+
 	      this.imageUrl = data.url
 	      this.text = '![image]($src)'.replace('$src', data.url) 
 	    }
