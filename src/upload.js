@@ -32,7 +32,7 @@ new Vue({
         image = isImage(pasteEvent);
         if (image) {
           event.preventDefault();
-          filename = getFilename(pasteEvent) || "image.png";
+          filename = getFilename(pasteEvent) || 'image-' + Date.now() + '.png';
           text = "{{" + filename + "}}";
           return uploadFile(image.getAsFile(), filename, function(data){
             console.log(data);
