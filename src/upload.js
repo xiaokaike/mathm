@@ -16,7 +16,8 @@ Array.prototype.last = function() {
 new Vue({
   el: '#app',
   data: {
-    imageUrl: ''
+    text: '',
+    imageUrl: '',
   },
   filters: {
     md: {
@@ -50,7 +51,7 @@ new Vue({
           text = "{{" + filename + "}}";
           return uploadFile(image.getAsFile(), filename, function(data){
             console.log(data);
-            that.imageUrl = data.url
+            that.uploadComplete(data);
           });
         }
       }
@@ -97,6 +98,7 @@ new Vue({
     },
     uploadComplete: function(data){
       this.imageUrl = data.url
+      this.text = '![image]($src)'.replace('$src', data.url) 
     }
   }
 });
