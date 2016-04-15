@@ -63,15 +63,29 @@
 	new Vue({
 	  el: '#app',
 	  data: {
+	    imageUrl: ''
 	  },
 	  filters: {
-	    
+	    md: {
+	      read: function(val) {
+	        return val
+	      },
+	      // view -> model
+	      // formats the value when writing to the data.
+	      write: function(src) {
+	        if(!src){
+	          return ''
+	        }
+	        return '![image]($src)'.replace('$src', src)
+	      }
+	    }
 	  },
 	  ready: function(){
 
 	  },
 	  methods:{
 	    handlePaste: function(event){
+	      var that = this;
 	      var filename, image, pasteEvent, text;
 	      pasteEvent = event;
 
@@ -83,6 +97,7 @@
 	          text = "{{" + filename + "}}";
 	          return uploadFile(image.getAsFile(), filename, function(data){
 	            console.log(data);
+	            that.imageUrl = data.url
 	          });
 	        }
 	      }
@@ -128,7 +143,7 @@
 	      e.preventDefault();
 	    },
 	    uploadComplete: function(data){
-
+	      this.imageUrl = data.url
 	    }
 	  }
 	});
