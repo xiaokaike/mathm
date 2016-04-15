@@ -1,14 +1,23 @@
 
 var _ = require('lodash')
+var fs = require('fs')
+var os = require('os')
 var path = require('path')
 var koa = require('koa')
 var request = require('koa-request')
 var serve = require('koa-static')
 var render = require('koa-swig')
+var route = require('koa-route')
+var coParse = require('co-busboy')
+
+var md = require('./src/md.js')
+var _testData = require('./data/title.js')
+
+/**
+ * start
+ */
 
 var app = koa()
-var _testData = require('./data/title.js')
-var fs = require('fs');
 var sAPI = ''
 try{
   var _conf = fs.readFileSync('./_config.json', 'utf-8')
@@ -22,11 +31,6 @@ console.log(sAPI)
 
 
 var port = process.env.PORT || 3008
-
-var md = require('./src/md.js')
-
-// or use absolute paths
-app.use(serve(__dirname + '/public/'))
 
 app.context.render = render({
   root: path.join(__dirname, 'views'),
@@ -44,41 +48,69 @@ app.context.render = render({
 })
 
 
-app.use(function *() {
-  var errorCount = 0
-  var query = this.request.query;
-  var page = query.page || 1
-  var size = query.size || 20
-  var url = sAPI.replace('{page}', page).replace('{size}', size);
-      
-  //Yay, HTTP requests with no callbacks! 
-  var response = yield request({
-    url: url,
-  });
+var pages = {
+  index: function*(){
+    var errorCount = 0
+    var query = this.request.query;
+    var page = query.page || 1
+    var size = query.size || 20
+    var url = sAPI.replace('{page}', page).replace('{size}', size);
+        
+    //Yay, HTTP requests with no callbacks! 
+    var response = yield request({
+      url: url,
+    });
 
-  var qsInfo = {}
+    var qsInfo = {}
 
-  try {
-    qsInfo = JSON.parse(response.body)
-  } catch (e){
-    console.log(e)
+    try {
+      qsInfo = JSON.parse(response.body)
+    } catch (e){
+      console.log(e)
+    }
+
+    _.each(qsInfo.data, function(item, index){
+      // console.log(index, '----------', item.title)
+      item.tpl = md.render(item.title)
+      if(/latex\-error/.test(item.tpl)){
+        errorCount ++
+      }
+    })
+
+    yield this.render('index',{
+      qs: qsInfo.data,
+      errorCount: errorCount
+    }) 
+  }
+}
+
+
+
+
+var upload = function *(next){
+  // ignore non-POSTs
+  if ('POST' != this.method) return yield next;
+  console.log('xxx')
+  // multipart upload
+  var parts = coParse(this);
+  var part;
+
+  while (part = yield parts) {
+    var stream = fs.createWriteStream(path.join(__dirname, '/public/upload/', part.filename));
+    part.pipe(stream);
+    console.log('uploading %s -> %s', part.filename, stream.path);
   }
 
-  _.each(qsInfo.data, function(item, index){
-    // console.log(index, '----------', item.title)
-    item.tpl = md.render(item.title)
-    if(/latex\-error/.test(item.tpl)){
-      errorCount ++
-    }
-  })
+  this.body = 'success'
+}
 
-  yield this.render('index',{
-    qs: qsInfo.data,
-    errorCount: errorCount
-  })
 
-})
 
+
+// or use absolute paths
+app.use(serve(__dirname + '/public/'))
+app.use(route.get('/', pages.index))
+app.use(route.post('/upload', upload))
 
 
 app.listen(port)

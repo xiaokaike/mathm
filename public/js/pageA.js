@@ -10247,8 +10247,6 @@
 	    .replace(/∠/g, '\\angle ')
 	    .replace(/\′/g, '\\backprime ') //TODO
 
-	  console.log(latex)
-
 	  return katex.renderToString(latex)
 	}
 

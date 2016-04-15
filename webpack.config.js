@@ -1,7 +1,8 @@
 module.exports = {
   entry: {
     pageA: "./src/page-katex.js",
-    pageB: "./src/page-mathjax.js"
+    pageB: "./src/page-mathjax.js",
+    upload: "./src/upload.js"
   },
   output: {
     path: "./public/js",
