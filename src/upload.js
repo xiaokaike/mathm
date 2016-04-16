@@ -18,6 +18,8 @@ new Vue({
   data: {
     text: '',
     imageUrl: '',
+    isFocus: false,
+    isDrogover: false
   },
   filters: {
     md: {
@@ -38,7 +40,7 @@ new Vue({
 
   },
   methods:{
-    handlePaste: function(event){
+    handleTPaste: function(event){
       var that = this;
       var filename, image, pasteEvent, text;
       pasteEvent = event;
@@ -55,6 +57,12 @@ new Vue({
           });
         }
       }
+    },
+    handleTFocus: function(e){
+      this.isFocus = true
+    },
+    handleTBlur: function(e){
+      this.isFocus = false
     },
     handleDrag: function(e){
       var that = this;  
@@ -90,11 +98,17 @@ new Vue({
       });
 
       if (hasImg) {
-        e.preventDefault();
+        this.isDrogover = false
+        e.preventDefault()
       }
     },
     handleDragover: function(e){
-      e.preventDefault();
+      this.isDrogover = true
+      e.preventDefault()
+    },
+    handleDragend: function(e){
+      this.isDrogover = false
+      e.preventDefault()
     },
     uploadComplete: function(data){
 
