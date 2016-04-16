@@ -161,6 +161,13 @@
 
 	      this.imageUrl = data.url
 	      this.text = '![image]($src)'.replace('$src', data.url) 
+	    },
+	    fileInputClick: function(e){
+	      console.log('fileInputClick', e)
+	    },
+	    fileInputChange: function(e){
+	      var myFiles = e.target.files
+	      console.log('fileInputChange', e)
 	    }
 	  }
 	});
