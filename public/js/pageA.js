@@ -10228,27 +10228,36 @@
 	function renderLatex(latex){
 	  
 	  // 去除不标准的latex字符
-	  latex = latex
-	    .replace(/\＞/g, '>')
-	    .replace(/…/g, '\\ldots ')
-	    .replace(/\＜/g, '<')
+	  latex = latex    
 	    .replace(/≤/g, '\\le ')
 	    .replace(/≥/g, '\\ge ')
 	    .replace(/≠/g, '\\ne ')
 	    .replace(/×/g, '\\times ')
 	    .replace(/÷/g, '\\div ')
 	    .replace(/≈/g, '\\approx ')
-	    .replace(/•/g, '\\cdot ')
-	    .replace(/π/g, '\\pi ')
+	    .replace(/＝/g, '=')
+	    
+
 	    .replace(/，/g, ', ')
 	    .replace(/（/g, '(')
 	    .replace(/）/g, ')')
+
+	    .replace(/\′/g, '\\backprime ') //TODO
+	    
+	    .replace(/α/g, '\\alpha ')
+	    .replace(/β/g, '\\beta ')
+	    .replace(/π/g, '\\pi ')
+
+	    .replace(/\＞/g, '>')    
+	    .replace(/\＜/g, '<')
+	    .replace(/…/g, '\\ldots ')
 	    .replace(/△/g, '\\bigtriangleup ')
 	    .replace(/∠/g, '\\angle ')
-	    .replace(/\′/g, '\\backprime ') //TODO
-	    .replace(/α/g, '\\alpha ')
-
+	    .replace(/•/g, '\\cdot ')
 	    .replace(/⋆/g, '\\ast ')
+	    .replace(/■/g, '\\blacksquare ')
+
+
 
 	  return katex.renderToString(latex)
 	}
