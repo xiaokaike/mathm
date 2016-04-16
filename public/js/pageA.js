@@ -10246,6 +10246,9 @@
 	    .replace(/△/g, '\\bigtriangleup ')
 	    .replace(/∠/g, '\\angle ')
 	    .replace(/\′/g, '\\backprime ') //TODO
+	    .replace(/α/g, '\\alpha ')
+
+	    .replace(/⋆/g, '\\ast ')
 
 	  return katex.renderToString(latex)
 	}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Function Support in KaTeX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">  
+
+  <style type="text/css">
+    .wrap{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .wrap li{
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .latex-box{
+      float: left;
+      display: -webkit-box;
+      margin: 0 8px 8px 0
+    }
+    .origin, .build{
+      display: block;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Function Support in KaTeX</h3>
+  
+  <ul class="wrap"> 
+    {% for group in latex %}
+      <li class="">
+        <h4>{{ group.name }}</h4>
+        {% for item in group.value %}
+        <div class="latex-box">
+          <span class="origin">{{item}}</span>
+          {% autoescape %} 
+          <span class="build">{{item | katex}}</span>
+          {% endautoescape %}
+        </div>
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+
+
+
+
+</body>
+</html>

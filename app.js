@@ -3,16 +3,23 @@ var _ = require('lodash')
 var fs = require('fs')
 var os = require('os')
 var path = require('path')
+var katex = require('katex')
+
+// koa
 var koa = require('koa')
 var request = require('koa-request')
 var serve = require('koa-static')
 var render = require('koa-swig')
 var route = require('koa-route')
-var koaJson = require('koa-json');
+var koaJson = require('koa-json')
+
+// other
 var coParse = require('co-busboy')
 
 var md = require('./src/md.js')
 var _testData = require('./data/title.js')
+var _latexData = require('./data/latex.js')
+
 
 /**
  * start
@@ -42,6 +49,14 @@ app.context.render = render({
   filters: {
     md: function(str){
       return md.render(str)
+    },
+    katex: function(str){
+      try {
+        return katex.renderToString(str)
+      } catch (e) {
+        return str
+      }
+      
     }
   },
   // tags: tags,
@@ -82,6 +97,11 @@ var pages = {
       qs: qsInfo.data,
       errorCount: errorCount
     }) 
+  },
+  latex: function*(){
+    yield this.render('latex',{
+      latex: _latexData,
+    }) 
   }
 }
 
@@ -117,6 +137,7 @@ var upload = function *(next){
 app.use(koaJson())
 app.use(serve(__dirname + '/public/'))
 app.use(route.get('/', pages.index))
+app.use(route.get('/latex', pages.latex))
 app.use(route.post('/upload', upload))
 
 
