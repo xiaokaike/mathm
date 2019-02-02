@@ -235,4 +235,4 @@ function _handleUpload(file) {
     xhr.send(form);
     this.$dispatch('afterFileUpload', file);
   }.bind(this));
-},
+}
